@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')->get();
-        return view('admin.products.index', compact('products'))
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.products.create',  compact('categories'))
+        return view('admin.products.create',  compact('categories'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
           'price' => 'required|numeric',
           'stock' => 'required|integer',
           'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ])
+        ]);
 
          $imagePath = null;
          if ($request->hasFile('image')) {
@@ -55,7 +55,7 @@ class ProductController extends Controller
            'price' => $request->price,
            'stock' => $request->stock,
            'image' => $imagePath,
-        ])
+        ]);
          return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
     }
 
@@ -73,7 +73,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = Category::all();
-        return view('admin.products.edit', compact('product', 'categories'))
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**

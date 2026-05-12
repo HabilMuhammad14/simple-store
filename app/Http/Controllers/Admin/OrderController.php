@@ -6,15 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Order;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
+        $orders = Order::with('user')->get();
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -52,9 +54,12 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, Order $order)
     {
-        //
+        $order->update([
+            'status' => $request->status,
+        ]);
+        return redirect()->route('orders.index')->with('success', 'Status pesanan berhasil diperbarui!');
     }
 
     /**
