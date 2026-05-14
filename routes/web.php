@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController as ProductControllerUser;
+use App\Http\Controllers\OrderController as OrderControllerUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,11 @@ Route::middleware(['auth', 'pembeli'])->group(function(){
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/remove/{index}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::resource('orders', OrderControllerUser::class)->only(['index']);
 });
+
+
 
 
